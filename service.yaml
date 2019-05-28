@@ -1,0 +1,17 @@
+piVersion: v1
+kind: Service
+metadata:
+  labels:
+    product: gs-spring-boot-docker
+  name: gs-spring-boot-docker
+spec:
+  ports:
+  - name: http
+    port: 8080
+    nodePort: 2430
+  - name: http2
+    port: 8443
+    nodePort: 2434
+  selector:
+    product: gs-spring-boot-docker
+  type: NodePort

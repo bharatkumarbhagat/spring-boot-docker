@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    product: gs-spring-boot-docker
+    version: v1
+  name: gs-spring-boot-docker
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      product: gs-spring-boot-docker
+      version: v1
+  strategy:
+    rollingUpdate:
+      maxSurge: 60%
+      maxUnavailable: 20%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        product: gs-spring-boot-docker
+        version: v1
+      name: gs-spring-boot-docker
+    spec:
+
+      containers:
+      - name: gs-spring-boot-docker
+        image: k8s.gcr.io/gs-spring-boot-docker:1.0
+        imagePullPolicy: Always
+        args:
+        - QA
+        envFrom:
+         - configMapRef:
+             name: application-properties-config
+        env:
+        - name: environment
+          value: QA
+        - name: JVM_OPTS
+          value: "-Xms512M -Xmx1024M"
+        - name: YTENV
+          value: QA
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 2000Mi
+          requests:
+            cpu: 10m
+            memory: 100Mi
