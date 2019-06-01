@@ -27,7 +27,7 @@ spec:
 
       containers:
       - name: gs-spring-boot-docker
-        image: k8s.gcr.io/gs-spring-boot-docker:1.0
+        image: anup28/project
         imagePullPolicy: Always
         args:
         - QA
