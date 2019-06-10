@@ -28,10 +28,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-   <properties>
-       <docker.image.prefix>springio</docker.image.prefix>
-    </properties>
-
     <build>
         <plugins>
             <plugin>
