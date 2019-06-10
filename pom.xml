@@ -35,12 +35,17 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <groupId>com.spotify</groupId>
-            <artifactId>dockerfile-maven-plugin</artifactId>
-            <version>1.4.9</version>
-            <configuration>
-                <repository>${docker.image.prefix}/${project.artifactId}</repository>
-            </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.stackify.Application</mainClass>
+                            <outputDirectory>${project.basedir}/docker</outputDirectory>
+                        </configuration>
+                    </execution>
+                 </executions>
             </plugin>
         </plugins>
     </build>
