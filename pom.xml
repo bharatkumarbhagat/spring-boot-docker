@@ -30,33 +30,31 @@
         </dependency>
     </dependencies>
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.4.9</version>
-                <executions>
-	                <execution>
-		                <id>default</id>
-		                <phase>install</phase>
-		                <goals>
-			                 <goal>build</goal>
-			                  <goal>push</goal>
-		                </goals>
-	                </execution>
-                </executions>
-                        <configuration>
-		             <docker.image.prefix>springio</docker.image.prefix>
-                        <artifactItems>
-                    <artifactItem>
-                        <groupId>${project.groupId}</groupId>
-                        <artifactId>${project.artifactId}</artifactId>
-                        <version>${project.version}</version>
-                    </artifactItem>
-                </artifactItems>
+	    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+        <!-- tag::plugin[] -->
+        <plugin>
+            <groupId>com.spotify</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>1.0.0</version>
+            <configuration>
+                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                <resources>
+                    <resource>
+                        <targetPath>/</targetPath>
+                        <directory>${project.build.directory}</directory>
+                        <include>${project.build.finalName}.jar</include>
+                    </resource>
+                </resources>
             </configuration>
-            </plugin>
-        </plugins>
+        </plugin>
+        <!-- end::plugin[] -->
+    </plugins>
+
     </build>
 
 </project>
